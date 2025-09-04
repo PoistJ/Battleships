@@ -1,0 +1,24 @@
+{
+  "name": "battleships",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/PoistJ/Battleships#readme",
+  "bugs": {
+    "url": "https://github.com/PoistJ/Battleships/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PoistJ/Battleships.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "DisplayLogic.js",
+  "scripts": {
+    "test": "jest",
+    "watch": "jest --watch *.js"
+  },
+  "devDependencies": {
+    "jest": "^30.1.3"
+  }
+}
