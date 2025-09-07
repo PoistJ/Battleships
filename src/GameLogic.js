@@ -49,8 +49,9 @@ class Gameboard {
       this.board[x - 1][y - 1].isSunk();
 
       if (this.board[x - 1][y - 1].sunk == true) {
-        this.board.sunkCount++;
+        this.sunkCount++;
       }
+      this.board[x - 1][y - 1] = 2;
     } else if (this.board[x - 1][y - 1] == 0) {
       this.board[x - 1][y - 1] = 1;
       console.log(`Missed! Coordinates: (${x},${y})`);
@@ -58,7 +59,14 @@ class Gameboard {
   }
 }
 
-const board = new Gameboard();
-console.log(board.createBoard(2, 2));
+class Player {
+  constructor(board) {
+    this.gameBoard = board;
+  }
+}
 
-module.exports = Gameboard;
+module.exports = {
+  Ship,
+  Gameboard,
+  Player,
+};

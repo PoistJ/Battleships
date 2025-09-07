@@ -1,7 +1,7 @@
-const Gameboard = require("./GameLogic");
+const GameLogic = require('./GameLogic');
 
 it("creates board of 2 x 2 size", () => {
-  const board = new Gameboard();
+  const board = new GameLogic.Gameboard();
   board.createBoard(2, 2);
 
   expect(board.board).toEqual([
@@ -11,7 +11,7 @@ it("creates board of 2 x 2 size", () => {
 });
 
 describe("placeShip function", () => {
-  const board = new Gameboard();
+  const board = new GameLogic.Gameboard();
   board.createBoard(10, 10);
   board.placeShip(2, 7, 3, 3, 5);
   it("places 5 length ship at (2,3) location (startpoint)", () => {
@@ -24,14 +24,14 @@ describe("placeShip function", () => {
 });
 
 describe("receiveAttack function", () => {
-  const board = new Gameboard();
+  const board = new GameLogic.Gameboard();
   board.createBoard(10, 10);
   board.placeShip(3, 6, 7, 7, 4);
 
   it("hits a ship", () => {
     board.receiveAttack(4, 7);
 
-    expect(board.board[3][6]).toMatchObject({ hit: 1 });
+    expect(board.board[3][6]).toEqual(2);
   });
 
   it("misses", () => {
@@ -42,7 +42,7 @@ describe("receiveAttack function", () => {
 });
 
 it("gameboard tracks misses", () => {
-  const board = new Gameboard();
+  const board = new GameLogic.Gameboard();
   board.createBoard(10, 10);
   board.receiveAttack(5, 5);
 
@@ -50,7 +50,7 @@ it("gameboard tracks misses", () => {
 });
 
 describe("check sunken ships", () => {
-  const board = new Gameboard();
+  const board = new GameLogic.Gameboard();
   board.createBoard(10, 10);
   board.placeShip(3, 7, 7, 7, 5);
   board.placeShip(2, 6, 3, 3, 4);
