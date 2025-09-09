@@ -15,4 +15,12 @@ module.exports = {
       template: "./src/battleships.html",
     }),
   ],
+  module: {
+    rules: [
+      {
+        test: /\.css$/i,
+        use: ["style-loader", "css-loader"],
+      },
+    ],
+  },
 };

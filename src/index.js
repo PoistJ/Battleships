@@ -1,13 +1,17 @@
+require("./styles.css");
 const GameLogic = require("./GameLogic");
 const DisplayLogic = require("./DisplayLogic");
 
-const main = document.getElementById("main");
+const gridOne = document.getElementsByClassName("gridOne")[0];
+const gridTwo = document.getElementsByClassName("gridTwo")[0];
 
-const btn = document.createElement("button");
-btn.innerHTML = "New Board";
-main.appendChild(btn);
+const boardOne = new GameLogic.Gameboard(1)
+const playerOne = new GameLogic.Player(boardOne, 1)
+const boardTwo = new GameLogic.Gameboard(2)
+const playerTwo = new GameLogic.Player(boardTwo, 2)
 
-btn.addEventListener("click", () => {
-  const board = new GameLogic.Gameboard();
-  DisplayLogic.displayBoard(board);
-});
+boardOne.createBoard(10,10);
+boardTwo.createBoard(10,10);
+
+DisplayLogic.displayBoard(boardOne);
+DisplayLogic.displayBoard(boardTwo);

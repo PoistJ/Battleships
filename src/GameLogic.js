@@ -17,9 +17,10 @@ class Ship {
 }
 
 class Gameboard {
-  constructor() {
+  constructor(boardNum) {
     this.board = [];
-    this.sunkCount = 0;
+    this.sunkCount = 0
+    this.boardNum = boardNum;
   }
 
   createBoard(rows, cols) {
@@ -60,8 +61,9 @@ class Gameboard {
 }
 
 class Player {
-  constructor(board) {
+  constructor(board, turn) {
     this.gameBoard = board;
+    this.turn = turn;
   }
 }
 
