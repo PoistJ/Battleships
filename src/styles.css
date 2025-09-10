@@ -1,3 +1,13 @@
 .boardDiv {
-    display: flex;
+  display: flex;
+}
+
+.gridOne {
+  height: 408px;
+  width: 408px;
+}
+
+.gridTwo {
+  height: 408px;
+  width: 408px;
 }

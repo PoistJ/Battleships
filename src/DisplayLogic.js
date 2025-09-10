@@ -3,11 +3,15 @@ const GameLogic = require("./GameLogic");
 const gridOne = document.getElementsByClassName("gridOne")[0];
 const gridTwo = document.getElementsByClassName("gridTwo")[0];
 
-function displayBoard(board) {
-  if (board.boardNum == 1) {
+function displayBoard(boardOne, boardTwo, currentTurn) {
+  if (currentTurn == 1) {
     gridDiv = gridOne;
-  } else if (board.boardNum == 2) {
+    board = boardOne;
+    nextTurn = 2
+  } else if (currentTurn == 2) {
     gridDiv = gridTwo;
+    board = boardTwo;
+    nextTurn = 1
   }
 
   const grid = document.createElement("div");
@@ -37,14 +41,17 @@ function displayBoard(board) {
       div.className = `cell${i + 1}${j + 1}`;
 
       div.addEventListener("click", () => {
-          if (board.boardNum == 1) {
-    gridDiv = gridOne;
-  } else if (board.boardNum == 2) {
-    gridDiv = gridTwo;
-  }
         board.receiveAttack(x, y);
-        gridDiv.innerHTML = "";
-        displayBoard(board);
+
+        if (currentTurn == 1) {
+          gridDiv = gridOne;
+        } else if (currentTurn == 2) {
+          gridDiv = gridTwo;
+        }
+
+        clearBoard(gridDiv);
+        displayBoard(boardOne, boardTwo, nextTurn)
+        hideBoard(board);
       });
       grid.appendChild(div);
     }
@@ -52,12 +59,23 @@ function displayBoard(board) {
 }
 
 function clearBoard() {
-  boardDiv.innerHTML = "";
+  gridOne.innerHTML = "";
+  gridTwo.innerHTML = "";
 }
 
-function refreshBoard(board, gridDiv) {
-  gridDiv.innerHTML = "";
-  displayBoard(board, gridDiv);
+function hideBoard(board) {
+  const coverDiv = document.createElement("div");
+  coverDiv.style.width = "408px";
+  coverDiv.style.height = "408px";
+  coverDiv.style.backgroundColor = "grey";
+
+  if (board.boardNum == 2) {
+    coverDiv.innerHTML = "It is Player Two's turn";
+    gridOne.appendChild(coverDiv);
+  } else if (board.boardNum == 1) {
+    coverDiv.innerHTML = "It is Player One's turn";
+    gridTwo.appendChild(coverDiv);
+  }
 }
 
-module.exports = { displayBoard };
+module.exports = { displayBoard, hideBoard };

@@ -61,11 +61,13 @@ class Gameboard {
 }
 
 class Player {
-  constructor(board, turn) {
+  constructor(board, turn, nextTurn) {
     this.gameBoard = board;
     this.turn = turn;
+    this.nextTurn = this.nextTurn;
   }
 }
+
 
 module.exports = {
   Ship,
