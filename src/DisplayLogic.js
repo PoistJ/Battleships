@@ -1,5 +1,4 @@
-const GameLogic = require("./GameLogic");
-
+const logDiv = document.getElementsByClassName("logDiv")[0];
 const gridOne = document.getElementsByClassName("gridOne")[0];
 const gridTwo = document.getElementsByClassName("gridTwo")[0];
 
@@ -7,11 +6,11 @@ function displayBoard(boardOne, boardTwo, currentTurn) {
   if (currentTurn == 1) {
     gridDiv = gridOne;
     board = boardOne;
-    nextTurn = 2
+    nextTurn = 2;
   } else if (currentTurn == 2) {
     gridDiv = gridTwo;
     board = boardTwo;
-    nextTurn = 1
+    nextTurn = 1;
   }
 
   const grid = document.createElement("div");
@@ -33,15 +32,15 @@ function displayBoard(boardOne, boardTwo, currentTurn) {
         div.style.backgroundColor = "red";
       } else if (board.board[i][j] == 1) {
         div.style.backgroundColor = "darkgrey";
-      } else if (board.board[i][j].sunk == false) {
-        div.style.backgroundColor = "blue";
       }
+
       div.style.borderStyle = "solid";
       div.style.borderColor = "black";
       div.className = `cell${i + 1}${j + 1}`;
 
       div.addEventListener("click", () => {
-        board.receiveAttack(x, y);
+        board.receiveAttack(x, y, currentTurn);
+        board.checkBoardStatus(nextTurn);
 
         if (currentTurn == 1) {
           gridDiv = gridOne;
@@ -50,7 +49,7 @@ function displayBoard(boardOne, boardTwo, currentTurn) {
         }
 
         clearBoard(gridDiv);
-        displayBoard(boardOne, boardTwo, nextTurn)
+        displayBoard(boardOne, boardTwo, nextTurn);
         hideBoard(board);
       });
       grid.appendChild(div);
@@ -78,4 +77,21 @@ function hideBoard(board) {
   }
 }
 
-module.exports = { displayBoard, hideBoard };
+function displayShipSunk(player, length) {
+  const logItem = document.createElement("div");
+  logItem.innerText = `Player ${player} has sunken a ship of length ${length}`;
+  logDiv.appendChild(logItem);
+}
+
+function displayPlayerLoss(player, length) {
+  const logItem = document.createElement("div");
+  logItem.innerText = `Player ${player} has lost the game!`;
+  logDiv.appendChild(logItem);
+}
+
+module.exports = {
+  displayBoard,
+  hideBoard,
+  displayShipSunk,
+  displayPlayerLoss,
+};

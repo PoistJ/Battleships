@@ -1,3 +1,5 @@
+const DisplayLogic = require("./DisplayLogic");
+
 class Ship {
   constructor(length) {
     this.length = length;
@@ -19,7 +21,7 @@ class Ship {
 class Gameboard {
   constructor(boardNum) {
     this.board = [];
-    this.sunkCount = 0
+    this.sunkCount = 0;
     this.boardNum = boardNum;
   }
 
@@ -44,18 +46,28 @@ class Gameboard {
     }
   }
 
-  receiveAttack(x, y) {
+  receiveAttack(x, y, playerTurn) {
     if (this.board[x - 1][y - 1] !== 0) {
       this.board[x - 1][y - 1].isHit();
       this.board[x - 1][y - 1].isSunk();
 
       if (this.board[x - 1][y - 1].sunk == true) {
         this.sunkCount++;
+        DisplayLogic.displayShipSunk(
+          playerTurn,
+          this.board[x - 1][y - 1].length
+        );
       }
       this.board[x - 1][y - 1] = 2;
     } else if (this.board[x - 1][y - 1] == 0) {
       this.board[x - 1][y - 1] = 1;
       console.log(`Missed! Coordinates: (${x},${y})`);
+    }
+  }
+  
+  checkBoardStatus(playerTurn) {
+    if (this.sunkCount == 5) {
+      DisplayLogic.displayPlayerLoss(playerTurn);
     }
   }
 }
@@ -67,7 +79,6 @@ class Player {
     this.nextTurn = this.nextTurn;
   }
 }
-
 
 module.exports = {
   Ship,
